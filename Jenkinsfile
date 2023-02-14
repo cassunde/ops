@@ -1,6 +1,6 @@
 pipeline {
     environment {
-        registry = "registry.inlinesoft.com.br/teste/"
+        registry = "inlinesoft/"
         version = "0.0.$BUILD_NUMBER"        
     }
      
@@ -25,9 +25,9 @@ pipeline {
             agent any
             steps {
                 script {
-                    docker.withRegistry( 'https://registry.inlinesoft.com.br', 'harbor' ) {
+                    docker.withRegistry( 'https://hub.docker.com', 'docker_hub' ) {
                         dockerImage.push()
-                        rocketSend channel: 'jenkins', message: "Build success - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", emoji: ':jenkins:',  color: 'green', rawMessage: true
+                        //rocketSend channel: 'jenkins', message: "Build success - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", emoji: ':jenkins:',  color: 'green', rawMessage: true
                     }
                 }
             }

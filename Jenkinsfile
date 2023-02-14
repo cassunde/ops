@@ -25,7 +25,7 @@ pipeline {
             agent any
             steps {
                 script {
-                    docker.withRegistry( 'registry-1.docker.io', 'docker_hub' ) {
+                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
                         dockerImage.push()
                         //rocketSend channel: 'jenkins', message: "Build success - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)", emoji: ':jenkins:',  color: 'green', rawMessage: true
                     }

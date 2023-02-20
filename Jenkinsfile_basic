@@ -12,7 +12,6 @@ pipeline {
             }
         }
         stage('Build Imagem docker') {
-            agent { label 'master' }
             steps {
                 node('master'){
                     script {

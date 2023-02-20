@@ -17,8 +17,9 @@ pipeline {
                 script {
                     dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
                 }
-            }
-
+            }            
+        }
+        stage('Push Imagem docker') {            
             steps {
                 script {
                     docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {

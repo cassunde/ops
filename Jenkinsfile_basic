@@ -12,7 +12,9 @@ pipeline {
             }
         }
         stage('Build Imagem docker') {
-            agent label 'linux'
+            agent {
+                label 'linux'
+            }
             steps {
                 script {
                     dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"    

@@ -6,6 +6,7 @@ pipeline {
                 docker {
                     image 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'
                     reuseNode true
+                    label 'my-defined-label'
                 } 
             }
             steps {
@@ -13,7 +14,7 @@ pipeline {
             }
         }
         stage('Test') {
-            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
+            agent { label 'my-defined-label' }
             steps {
                 sh './mvnw test'
             }

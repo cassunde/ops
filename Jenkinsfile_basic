@@ -12,9 +12,19 @@ pipeline {
                 sh './mvnw test'
             }
         }
-        stage('Deploy') {
+        stage('Build Imagem docker') {
             steps {
-                echo 'Deploying....'
+                script {
+                    dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
+                }
+            }
+
+            steps {
+                script {
+                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }

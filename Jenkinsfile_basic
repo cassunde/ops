@@ -1,18 +1,15 @@
 pipeline {
-    agent any
+    agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
 
     stages {
         stage('Build') {
-
-            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
-
             steps {
-                echo 'ops:$version'
+                sh './mvnw package'
             }
         }
         stage('Test') {
             steps {
-                echo 'Testing..'
+                sh './mvnw test'
             }
         }
         stage('Deploy') {

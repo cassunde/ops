@@ -14,12 +14,14 @@ pipeline {
         stage('Build Imagem docker') {
             agent { label 'master' }
             steps {
-                script {
-                    dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"    
-                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
-                        dockerImage.push()
-                    }               
-                }
+                node('master'){
+                    script {
+                        dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"    
+                        docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
+                            dockerImage.push()
+                        }               
+                    }
+                }            
             }            
         }
     }

@@ -14,7 +14,7 @@ pipeline {
         stage('Build Imagem docker') {
             agent {
                 node {
-                    label 'mestre'
+                    label 'master'
                 }
             }
             steps {

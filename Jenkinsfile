@@ -3,8 +3,9 @@ pipeline {
 
     stages {
         stage('Build') {
+            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
             steps {
-                echo 'Building..'
+                sh 'java -version'
             }
         }
         stage('Docker Build') {

@@ -10,12 +10,18 @@ pipeline {
         }
         stage('Docker Build') {
             steps {
-                echo 'Testing..'
+                script {
+                    dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
+                }
             }
         }
         stage('Docker Deploy') {
             steps {
-                echo 'Deploying....'
+                script {
+                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }

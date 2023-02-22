@@ -1,8 +1,24 @@
 pipeline {
     agent none
     stages {
+        stage('Test') {
+            agent { 
+                docker {
+                    image 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'
+                    reuseNode true
+                } 
+            }
+            steps {
+                sh './mvnw test'
+            }
+        }
         stage('Build') {
-            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
+            agent { 
+                docker {
+                    image 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'
+                    reuseNode true
+                } 
+            }
             steps {
                 sh './mvnw package'
             }

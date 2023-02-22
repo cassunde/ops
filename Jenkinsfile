@@ -26,7 +26,11 @@ pipeline {
         stage('Docker Deploy') {
             agent any
             steps {
-                echo 'Deploying....'
+              script {
+                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
+                        dockerImage.push()
+                    }
+                }
             }
         }
     }

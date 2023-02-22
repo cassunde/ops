@@ -1,5 +1,5 @@
 pipeline {
-    agent docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'
+    agent {docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'}
     stages {
         stage('Test') {            
             steps {

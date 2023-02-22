@@ -12,7 +12,9 @@ pipeline {
             }
         }
         stage('Docker Build') {
-            agent none
+            agent {
+                 label 'master'
+             }
             steps {
                 script {
                     dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
@@ -20,7 +22,9 @@ pipeline {
             }
         }
         stage('Docker Deploy') {
-            agent none
+            agent {
+                 label 'master'
+             }
             steps {
                 script {
                     docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {

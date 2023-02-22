@@ -6,6 +6,11 @@ pipeline {
             steps {
                 sh './mvnw test'
             }
+            post {
+                always {
+                    junit 'build/reports/**/*.xml'
+                }
+            }
         }
         stage('Build') {            
             agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }

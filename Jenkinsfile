@@ -18,7 +18,9 @@ pipeline {
         stage('Docker Build') {
             agent any
             steps {
-                echo 'Testing..'
+                script {
+                    dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
+                }
             }
         }
         stage('Docker Deploy') {

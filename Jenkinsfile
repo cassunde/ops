@@ -8,6 +8,11 @@ pipeline {
             steps {
                 sh './mvnw test'
             }
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }            
         }
         stage('Build') {
             agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }

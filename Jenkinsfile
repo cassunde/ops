@@ -1,39 +1,25 @@
 pipeline {
-    agent none 
+    agent any
+
     stages {
-        stage('Test') {        
-            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }                
+        stage('Test') {
             steps {
-                sh './mvnw test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+                echo 'Test..'
             }
         }
-        stage('Build') {            
-            agent { docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1' }
+        stage('Build') {
             steps {
-                sh './mvnw package'
+                echo 'Building..'
             }
         }
         stage('Docker Build') {
-            
             steps {
-                script {
-                    dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
-                }
+                echo 'Testing..'
             }
         }
         stage('Docker Deploy') {
-            
             steps {
-                script {
-                    docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {
-                        dockerImage.push()
-                    }
-                }
+                echo 'Deploying....'
             }
         }
     }

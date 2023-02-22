@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'inlinesoft/java11_dockercli:0.0.1'
+            image 'inlinesoft/java11_dockercli:0.0.2'
             args  '-v /var/run/docker.sock:/var/run/docker.sock'
         }
     }

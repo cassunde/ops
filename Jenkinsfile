@@ -1,20 +1,20 @@
 pipeline {
-    agent {docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'}
+    agent none
     stages {
         stage('Test') {            
+            agent {docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'}
             steps {
                 sh './mvnw test'
             }
         }
         stage('Build') {            
+            agent {docker 'adoptopenjdk/openjdk11:jdk-11.0.9.1_1'}
             steps {
                 sh './mvnw package'
             }
         }
         stage('Docker Build') {
-            agent {
-                 label 'master'
-             }
+            agent any
             steps {
                 script {
                     dockerImage = docker.build "inlinesoft/ops:0.0.$BUILD_NUMBER"                   
@@ -22,9 +22,7 @@ pipeline {
             }
         }
         stage('Docker Deploy') {
-            agent {
-                 label 'master'
-             }
+            agent any
             steps {
                 script {
                     docker.withRegistry( 'https://registry-1.docker.io', 'docker_hub' ) {

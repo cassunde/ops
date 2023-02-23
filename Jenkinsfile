@@ -38,5 +38,12 @@ pipeline {
                 }
             }
         }
+
+        stage('Deployt servidor') {
+            agent any
+            steps {
+                sh "ssh inline@172.17.0.1 ./update_ops.sh 0.0.$BUILD_NUMBER"
+            }
+        }
     }
 }
